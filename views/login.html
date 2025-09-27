@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(120deg, #005f73, #005f73);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-box {
+        background-color: white;
+        padding: 40px 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .login-box h2 {
+        text-align: center;
+        color: #023047;
+        margin-bottom: 30px;
+      }
+
+      .login-box input[type="text"],
+      .login-box input[type="password"] {
+        width: 90%;
+        padding: 12px 15px;
+        margin: 10px 0 ;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      .login-box button {
+        width: 100%;
+        padding: 12px;
+        background-color: #005f73;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .login-box button:hover {
+        background-color: #27899c;
+      }
+
+      .login-box p {
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+        margin-top: 20px;
+      }
+      #directing {
+        margin-top: 5px;
+        color: rgb(203, 14, 14);
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-box">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input
+          autofocus
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Username"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          id="pwd"
+          placeholder="Password"
+          required
+        />
+        <a style="float:right;color:#005f73;margin-bottom: 10px;margin-right: 10px;">Forgot Password?</a>
+        <button type="submit">Login</button>
+      </form>
+      <div id="directing">Redirecting to Home Page...</div>
+      <p>
+        Don't have an account?
+        <a
+          style="text-decoration: none; color: #005f73"
+          href="/signupPage"
+          onclick="event.preventDefault();
+       location.replace(this.href);"
+          >Register</a
+        >
+      </p>
+    </div>
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          let username = document.getElementById("username").value;
+          let password = document.getElementById("pwd").value;
+          let user = { username, password };
+          loginUser(user);
+        });
+      function loginUser(user) {
+        let xhr = new XMLHttpRequest();
+        let url = "http://localhost:8080/login";
+        xhr.open("POST", url, true);
+        xhr.onload = () => {
+          let ackMsg = JSON.parse(xhr.responseText);
+          console.log(ackMsg.msg);
+          if (ackMsg.msg === "success") {
+            document.getElementById("directing").style.display = "block";
+            localStorage.setItem("isLogged", true);
+            setTimeout(() => {
+              window.location.replace("/todo");
+            }, 1000);
+          } else {
+            alert("Invalid Credentials");
+          }
+        };
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(user));
+      }
+    </script>
+  </body>
+</html>

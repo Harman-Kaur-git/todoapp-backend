@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(120deg, #005f73, #005f73);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .signup-box {
+        background-color: white;
+        padding: 40px 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 450px;
+      }
+
+      .signup-box h2 {
+        text-align: center;
+        color: #023047;
+        margin-bottom: 30px;
+      }
+
+      .signup-box label {
+        font-size: 15px;
+        margin-bottom: 6px;
+        display: block;
+        color: #333;
+      }
+
+      .signup-box input {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .signup-box button {
+        width: 100%;
+        padding: 12px;
+        background-color: #005f73;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .signup-box button:hover {
+        background-color: #2a8ca0;
+      }
+
+      .signup-box .footer {
+        text-align: center;
+        font-size: 14px;
+        color: #555;
+        margin-top: 20px;
+      }
+
+      .signup-box .footer a {
+        color: #005f73;
+        text-decoration: none;
+      }
+
+      .signup-box .footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-box">
+      <h2>Create an Account</h2>
+      <form id="signup-form">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="John Doe"
+          autofocus
+          required
+        />
+
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="johndoe"
+          required
+        />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+        />
+
+        <label for="pwd">Password</label>
+        <input
+          type="password"
+          id="pwd"
+          name="pwd"
+          placeholder="Enter password"
+          required
+        />
+
+        <button type="submit">Sign Up</button>
+      </form>
+
+      <div class="footer">
+        Already have an account?
+        <a
+          href="/loginPage"
+          style="color: #005f73"
+          onclick="event.preventDefault();
+       location.replace(this.href);"
+          >Login</a
+        >
+      </div>
+    </div>
+
+    <script>
+
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          let name = document.getElementById("name").value;
+          let username = document.getElementById("username").value;
+          let email = document.getElementById("email").value;
+          let password = document.getElementById("pwd").value;
+          let userId=Date.now();
+          let user = { name, username, userId,email, password };
+          registerUser(user);
+        });
+
+      function registerUser(user) {
+        let xhr = new XMLHttpRequest();
+        let url = "http://localhost:8080/register";
+        xhr.open("POST", url, true);
+        xhr.onload = () => {
+          let ackMsg = JSON.parse(xhr.responseText);
+          if (ackMsg.msg === "success") {
+            window.location.replace("/loginPage");
+          } else {
+            alert("Signup failed. Try again.");
+          }
+        };
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(user));
+      }
+  
+    </script>
+  </body>
+</html>

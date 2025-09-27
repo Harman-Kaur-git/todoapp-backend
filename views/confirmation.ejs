@@ -1,0 +1,60 @@
+<style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(120deg, #005f73, #005f73);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .login-box {
+        background-color: white;
+        padding: 40px 30px;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <div class="login-box">
+      <h2>Deactivate Account</h2>
+      <form id="deactivate-form">
+        <h3 style="color:#005f73">If you delete your account you will lose your data</h3>
+        <div style="box-shadow:2px 2px 20px 2px gray;padding-left: 20px;padding-bottom: 7px;height:60px;">
+        <h3 style="color:#005f73">Do you want to proceed?</h3>
+         <button type="button" id="no"
+         style="color:black;border:2px solid black;width:50px;margin-left:10px;float:right;
+         margin-right: 10px;
+         height:20px;border-radius: 50%;">No</button>
+        <button type="button" id="yes"
+         style="color:white;background-color:  #005f73;border:2px solid #005f73;float:right;
+         width:50px;height:20px;border-radius: 50%;">Yes</button>
+       
+        </div>
+
+        
+      </form>
+      
+    </div>
+    <script>
+      document.getElementById("yes").addEventListener("click",function(e)
+    {
+      window.location.href="/account/deactivate/confirmed";
+    
+    })
+    document.getElementById("no").addEventListener("click",function(e)
+  {
+    window.location.replace("/todo")
+  })
+    </script>

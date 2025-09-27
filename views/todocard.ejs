@@ -1,0 +1,61 @@
+<div
+  class="todocard"
+  data-id="<%=todo.id%>"
+  data-title="<%=todo.title%>"
+  data-status="<%=todo.completed%>"
+  style="
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    width: 80%;
+     height: 12rem;
+    margin-bottom: 30px;
+    padding-top: 20px;
+    margin-left: 11%;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  "
+>
+
+  <h3>Task <%= todo.id %></h3>
+  <p><strong><%= todo.title %></strong></p>
+  <p style="margin-top: 2px">
+    Status:
+    <span> <%= todo.completed==="true"? "✅ Done" : "❌ Pending" %> </span>
+  </p>
+  <div>
+    <button
+    style="
+      border: 2px solid white;
+      background-color: rgb(33, 157, 33);
+      color: white;
+      padding: 5px;
+      border-radius: 10px;
+      width:4rem;
+    "
+    class="edit"
+  >
+  Edit
+  </button>
+  <button
+    style="
+      border: 2px solid white;
+      background-color: rgb(231, 108, 108);
+      color: white;
+      padding: 5px;
+      border-radius: 10px;
+      width:4rem;
+    "
+    class="del"
+  >
+    Delete
+  </button>
+  </div>
+</div>
+
+
+
