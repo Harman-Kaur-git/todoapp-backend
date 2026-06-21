@@ -35,7 +35,7 @@
         margin-bottom: 30px;
       }
 
-      .login-box input[type="text"],
+      .login-box input[type="email"],
       .login-box input[type="password"] {
         width: 90%;
         padding: 12px 15px;
@@ -80,10 +80,10 @@
       <form id="login-form">
         <input
           autofocus
-          type="text"
-          id="username"
-          name="username"
-          placeholder="Username"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Email"
           required
         />
         <input
@@ -113,9 +113,9 @@
         .getElementById("login-form")
         .addEventListener("submit", function (e) {
           e.preventDefault();
-          let username = document.getElementById("username").value;
+          let email = document.getElementById("email").value;
           let password = document.getElementById("pwd").value;
-          let user = { username, password };
+          let user = { email, password };
           loginUser(user);
         });
       function loginUser(user) {

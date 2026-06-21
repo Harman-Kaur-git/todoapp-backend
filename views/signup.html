@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -85,15 +85,6 @@
     <div class="signup-box">
       <h2>Create an Account</h2>
       <form id="signup-form">
-        <label for="name">Full Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="John Doe"
-          autofocus
-          required
-        />
 
         <label for="username">Username</label>
         <input
@@ -130,26 +121,37 @@
         <a
           href="/loginPage"
           style="color: #005f73"
-          onclick="event.preventDefault();
-       location.replace(this.href);"
+          onclick="
+            event.preventDefault();
+            location.replace(this.href);
+          "
           >Login</a
         >
       </div>
     </div>
 
     <script>
+      function isStrongPassword(password) {
+        const strongPasswordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/;
 
+        return strongPasswordRegex.test(password);
+      }
       document
         .getElementById("signup-form")
         .addEventListener("submit", function (e) {
           e.preventDefault();
-
-          let name = document.getElementById("name").value;
           let username = document.getElementById("username").value;
           let email = document.getElementById("email").value;
           let password = document.getElementById("pwd").value;
-          let userId=Date.now();
-          let user = { name, username, userId,email, password };
+          let userId = Date.now();
+          if (!isStrongPassword(password)) {
+            alert(
+              "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.",
+            );
+            return;
+          }
+          let user = { username, userId, email, password };
           registerUser(user);
         });
 
@@ -159,7 +161,10 @@
         xhr.open("POST", url, true);
         xhr.onload = () => {
           let ackMsg = JSON.parse(xhr.responseText);
-          if (ackMsg.msg === "success") {
+          if(ackMsg.msg==="email exists"){
+             alert("Signup failed! Email already exists");
+          }
+          else if (ackMsg.msg === "success") {
             window.location.replace("/loginPage");
           } else {
             alert("Signup failed. Try again.");
@@ -168,7 +173,6 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(user));
       }
-  
     </script>
   </body>
 </html>

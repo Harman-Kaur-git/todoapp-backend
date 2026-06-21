@@ -7,18 +7,22 @@ exports.registerController = (req, res) => {
     } else {
       let userData = JSON.parse(data);
       let users = userData.users;
+      const emailExists = users.some((user) => user.email === newuser.email);
+
+      if (emailExists) {
+        return res.send({ msg: "email exists" });
+      }
+
       users.push(newuser);
-      fs.writeFile(
-        "../data/users.json",
-        JSON.stringify({ users: userData.users }),
-        (err) => {
-          if (err) {
-            res.send(JSON.stringify({ msg: "fail" }));
-          } else {
-            res.send(JSON.stringify({ msg: "success" }));
-          }
+
+      fs.writeFile("../data/users.json", JSON.stringify({ users: userData.users}), (err) => {
+        if (err) {
+          return res.send({ msg: "fail" });
         }
-      );
+
+        return res.send({ msg: "success" });
+      });
+      
     }
   });
 };

@@ -9,7 +9,7 @@ exports.loginController = (req, res) => {
       let users=JSON.parse(data).users;
       let flag=false;
       users.forEach(user=>{
-        if(user.username===userTrying.username && 
+        if(user.email===userTrying.email && 
             user.password===userTrying.password)
         {
               req.session.user={
@@ -17,7 +17,7 @@ exports.loginController = (req, res) => {
           email:user.email,
           userId:user.userId
         }
-          console.log(req.session.user)
+         
            userId=user.userId;
             flag=true;
 
