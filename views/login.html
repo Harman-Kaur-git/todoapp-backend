@@ -120,7 +120,7 @@
         });
       function loginUser(user) {
         let xhr = new XMLHttpRequest();
-        let url = "http://localhost:8080/login";
+        let url = "/login";
         xhr.open("POST", url, true);
         xhr.onload = () => {
           let ackMsg = JSON.parse(xhr.responseText);
