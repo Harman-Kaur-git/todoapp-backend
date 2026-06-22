@@ -1,8 +1,11 @@
 const fs = require("node:fs");
+const path = require("path");
+
+const usersPath = path.join(__dirname, "..", "data", "users.json");
 exports.deleteaccount = (req, res) => {
   let deleteuser = req.body;  
   let flag = true;
-  fs.readFile("../data/users.json", "utf8", (err, data) => {
+  fs.readFile(usersPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
     } else {
@@ -23,7 +26,7 @@ exports.deleteaccount = (req, res) => {
       });
 
       fs.writeFile(
-        "../data/users.json",
+        usersPath,
         JSON.stringify({ users: updateUsers }),
         (err) => {
           if (err) {

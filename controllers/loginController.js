@@ -1,7 +1,10 @@
 const fs = require("node:fs");
+const path = require("path");
+
+const usersPath = path.join(__dirname, "..", "data", "users.json");
 exports.loginController = (req, res) => {
     let userTrying=req.body;
-  fs.readFile("../data/users.json", "utf8", (err, data) => {
+  fs.readFile(usersPath, "utf8", (err, data) => {
     if (err) {
       res.send(err);
     } else {

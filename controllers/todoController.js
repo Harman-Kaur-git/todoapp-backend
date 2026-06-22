@@ -1,7 +1,9 @@
-const { checkPrime } = require("node:crypto");
+const path = require("path");
 const fs = require("node:fs");
+
+const todoPath = path.join(__dirname, "..", "data", "todos.json");
 exports.getToDo = function (req, res) {
-  fs.readFile("../data/todos.json", "utf8", (err, data) => {
+  fs.readFile(todoPath, "utf8", (err, data) => {
     if (err) {
       res.send(err);
     } else {

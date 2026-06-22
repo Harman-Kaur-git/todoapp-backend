@@ -1,7 +1,10 @@
 const fs = require("node:fs");
+const path = require("path");
+
+const usersPath = path.join(__dirname, "..", "data", "users.json");
 exports.registerController = (req, res) => {
   let newuser = req.body;
-  fs.readFile("../data/users.json", "utf8", (err, data) => {
+  fs.readFile(usersPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
     } else {
@@ -15,7 +18,7 @@ exports.registerController = (req, res) => {
 
       users.push(newuser);
 
-      fs.writeFile("../data/users.json", JSON.stringify({ users: userData.users}), (err) => {
+      fs.writeFile(usersPath, JSON.stringify({ users: userData.users}), (err) => {
         if (err) {
           return res.send({ msg: "fail" });
         }

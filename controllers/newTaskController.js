@@ -1,12 +1,14 @@
 const fs = require("node:fs");
 let userId;
+const path = require("path");
+const todoPath = path.join(__dirname, "..", "data", "todos.json");
 exports.newTaskController = (req, res) => {
   let newtask = req.body;
 
   let checkEdit = req.query.edit || false;
   let add = true;
   let edit = false;
-  fs.readFile("../data/todos.json", "utf8", (err, data) => {
+  fs.readFile(todoPath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
     } else {
@@ -40,7 +42,7 @@ exports.newTaskController = (req, res) => {
           }
         });
       }
-      fs.writeFile("../data/todos.json", JSON.stringify({todos:taskdata.todos}), (err) => {
+      fs.writeFile(todoPath, JSON.stringify({todos:taskdata.todos}), (err) => {
         if (err) {
           console.log(err);
         } else {

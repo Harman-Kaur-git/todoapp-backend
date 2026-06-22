@@ -1,4 +1,6 @@
 const fs = require("node:fs");
+const path = require("path");
+const todoPath = path.join(__dirname, "..", "data", "todos.json");
 exports.deleteController= (req, res) => {
     let deleteTask=req.body.id;
     let userId;
@@ -6,7 +8,7 @@ exports.deleteController= (req, res) => {
         userId=req.session.user.userId;
     }
     console.log(userId);
-    fs.readFile("../data/todos.json","utf8",(err,data)=>{
+    fs.readFile(todoPath,"utf8",(err,data)=>{
         if(err)
         {
             console.log(err);
@@ -26,7 +28,7 @@ exports.deleteController= (req, res) => {
                     newtodos.push(todo);
                 }
             })
-            fs.writeFile("../data/todos.json",JSON.stringify({todos:newtodos}),(err)=>{
+            fs.writeFile(todoPath,JSON.stringify({todos:newtodos}),(err)=>{
                     if(err)
                     {
                           res.send(JSON.stringify({ msg: "fail" }));
