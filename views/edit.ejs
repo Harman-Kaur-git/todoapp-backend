@@ -121,7 +121,7 @@
 
       function editTask(newtask) {
         let xhr = new XMLHttpRequest();
-        let url = "http://localhost:8080/newtask?edit=true";
+        let url = "/newtask?edit=true";
         xhr.open("POST", url);
         xhr.onload = () => {
           let ackMsg = JSON.parse(xhr.responseText);
