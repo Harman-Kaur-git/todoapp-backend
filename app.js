@@ -8,17 +8,12 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 
 app.use(session({
-  store: new FileStore({
-    path: './sessions', // folder to save sessions
-    ttl: 60 * 100,       // session life in seconds (100 minutes)
-  }),
-  secret: 'super-secret-key',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  rolling: true,
   cookie: {
-    maxAge: 1000 * 60 * 100, // 100 minutes
-    httpOnly: true
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
   }
 }));
 
