@@ -36,13 +36,13 @@
         function editTask(editId, editTitle) {
           let id = editId;
           let title = editTitle;
-          let url = `http://localhost:8080/todo/editform?id=${id}&title=${title}`;
+          let url = `/todo/editform?id=${id}&title=${title}`;
           window.location.href = url;
         }
 
         function deleteTask(deleteId) {
           let xhr = new XMLHttpRequest();
-          let url = "http://localhost:8080/delete";
+          let url = "/delete";
           xhr.open("POST", url);
           xhr.onload = () => {
             let ackMsg = xhr.responseText || "";
