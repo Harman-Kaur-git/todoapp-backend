@@ -99,7 +99,7 @@
     function deleteAccount(user)
     {
         let xhr=new XMLHttpRequest();
-        let url="http://localhost:8080/deactivate";
+        let url="/deactivate";
         xhr.open("POST",url);
         xhr.onload=()=>{
             let msg=xhr.responseText;
