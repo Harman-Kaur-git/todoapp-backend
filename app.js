@@ -16,7 +16,12 @@ app.use(session({
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
   }
 }));
+const cors = require("cors");
 
+app.use(cors({
+  origin: "https://todoapp-backend-production-19aa.up.railway.app",
+  credentials: true
+}));
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
