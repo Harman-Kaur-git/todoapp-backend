@@ -157,7 +157,7 @@
 
       function registerUser(user) {
         let xhr = new XMLHttpRequest();
-        let url = "http://localhost:8080/register";
+        let url = "/register";
         xhr.open("POST", url, true);
         xhr.onload = () => {
           let ackMsg = JSON.parse(xhr.responseText);
